@@ -28,12 +28,11 @@ public class KakaoMapsApiController {
 	}
 
 	@GetMapping("/searches")    // the number of food store is 15 stores. <- use this api.
-	public Mono<List<ResultOfMaps>> searchPlaces(/*@RequestParam String query, @RequestParam String category_group_code,*/ @RequestParam UserLocationRequest userLocationRequset) {
-//	public Mono<List<ResultOfMaps>> searchPlaces(/*@RequestParam String query, @RequestParam String category_group_code,*/ @RequestParam double x, @RequestParam double y, @RequestParam int radius) {
+	public Mono<List<ResultOfMaps>> searchPlaces(/*@RequestParam String query, @RequestParam String category_group_code,*/ @RequestParam double x, @RequestParam double y, @RequestParam int radius) {
 		String query = "음식점";
 		String category_group_code = "FD6";
 		int page = 1;
-		return kakaoMapService.searchPlaces(query, category_group_code, userLocationRequset.getXaxis(), userLocationRequset.getYaxis(), userLocationRequset.getRadius(), page);
+		return kakaoMapService.searchPlaces(query, category_group_code, x,y,radius, page);
 	}
 
 	@GetMapping("/searches/threetimes")    // the number of food store is 45 stores.
@@ -43,6 +42,5 @@ public class KakaoMapsApiController {
 		int page = 3;
 		return kakaoMapService.searchPlacesMultiplePages(query, category_group_code, x, y, radius, page);
 	}
-
 }
 

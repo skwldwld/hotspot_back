@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class KakaoMapService {
-
 	@Value("${kakao.api.key}")
 	private String kakaoApiKey;
 
@@ -28,7 +27,7 @@ public class KakaoMapService {
 	// Flux : execute many times
 
 	// search many places (15 stores) :: on map
-    public Mono<List<ResultOfMaps>> searchPlaces(String query, String category_group_code, double x, double y, int radius, int page) {
+	public Mono<List<ResultOfMaps>> searchPlaces(String query, String category_group_code, double x, double y, int radius, int page) {
 		return this.webClient.get()
 			.uri(uriBuilder -> uriBuilder.path("/v2/local/search/keyword.json")
 				.queryParam("query", query)
@@ -42,7 +41,7 @@ public class KakaoMapService {
 			.retrieve()
 			.bodyToMono(JsonNode.class)
 			.map(this::extractResults);
-		}
+	}
 
 	public List<ResultOfMaps> extractResults(JsonNode jsonNode) {
 		List<ResultOfMaps> results = new ArrayList<>();
