@@ -27,8 +27,8 @@ public class KakaoMapsApiController {
 		return kakaoMapService.searchPlace(query, category_group_code, x, y, radius);
 	}
 
-	// before find 15 stores (not use cache)
-	@GetMapping("/searches/NoCahce")    // the number of food store is 15 stores. <- use this api.
+	// before find 15 stores (use cache)
+	@GetMapping("/searches/Stores")    // the number of food store is 15 stores. <- use this api.
 	public Mono<List<ResultOfMaps>> searchPlacesNoCache(@RequestParam double x, @RequestParam double y, @RequestParam int radius) {
 	    String query = "음식점";
 	    String category_group_code = "FD6";
@@ -37,6 +37,11 @@ public class KakaoMapsApiController {
 		return kakaoMapService.searchPlaces(query, category_group_code, x, y, radius, page);
 	}
 
+	// 폼 바꿔야 함. -> request로 받아서 처리하는 코드로 바꿀 것ㅎ
+	@GetMapping("/searches/Stores/{storeId}")
+	public Mono<ResultOfMaps> searchStore(@RequestParam String storeId) {
+		return kakaoMapService.getStoreFromCache(storeId);
+	}
 
 //	@GetMapping("/searches")    // the number of food store is 15 stores. <- use this api.
 ////	public List<ResultOfMaps> searchPlaces(/*@RequestParam String query, @RequestParam String category_group_code,*/ @RequestParam double x, @RequestParam double y, @RequestParam int radius) {
