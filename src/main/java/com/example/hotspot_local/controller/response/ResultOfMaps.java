@@ -10,7 +10,7 @@ public class ResultOfMaps {
 	private String localNumberAddress;
 	private String loadNameAddress;
 	private String phoneNumber;
-	private double storeId;
+	private String storeId;
 //	private int review;
 
 }

@@ -2,8 +2,11 @@ package com.example.hotspot_local.service;
 
 import com.example.hotspot_local.controller.response.ResultOfMaps;
 import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.annotation.PostConstruct;
 import net.sf.jsqlparser.statement.select.First;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -11,6 +14,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,15 +25,16 @@ public class KakaoMapService {
 
 	private final WebClient webClient;
 
+	private ConcurrentHashMap<String, ResultOfMaps> cache;
+
+	@PostConstruct
+	public void init() {
+		cache = new ConcurrentHashMap<>();
+	}
+
 	public KakaoMapService(WebClient.Builder webClientBuilder) {
 		this.webClient = webClientBuilder.baseUrl("https://dapi.kakao.com").build();
 	}
-
-	// Mono : execute once
-	// Flux : execute many times
-
-
-	// todo : id 내역 추가해서, 해당 부분으로 음식점 구분할 수 있도록 하기.
 
 	// search many places (15 stores) :: on map
 	public Mono<List<ResultOfMaps>> searchPlaces(String query, String category_group_code, double x, double y, int radius, int page) {
@@ -62,7 +68,7 @@ public class KakaoMapService {
 				resultOfMaps.setLocalNumberAddress(item.path("address_name").asText());
 				resultOfMaps.setLoadNameAddress(item.path("road_address_name").asText());
 				resultOfMaps.setPhoneNumber(item.path("phone").asText());
-				resultOfMaps.setStoreId(item.path("id").asDouble());
+				resultOfMaps.setStoreId(item.path("id").asText());
 
 				results.add(resultOfMaps);
 			}
@@ -71,6 +77,41 @@ public class KakaoMapService {
 
 		return results;
 	}
+
+	// store/put stores_list in cache -> if we want to check the cache, then change the code.
+//	1st method..
+//	public Mono<Void> saveStoresInCache(String query, String category_group_code, double x, double y, int radius, int page) {
+//		return searchPlaces(query, category_group_code, x, y, radius, page)
+//			.flatMapMany(Flux::fromIterable) // translate "Mono<List<ResultOfMaps>>" to Flux<ResultOfMaps>
+//			.flatMap(store -> cacheStore(store.getStoreId(), store))
+//			.then();
+//	}
+
+	public Mono<Void> saveStoresInCache(String query, String category_group_code, double x, double y, int radius, int page) {
+//		System.out.println("start saveStoresInCache");
+		return searchPlaces(query, category_group_code, x, y, radius, page)
+			.flatMapMany(Flux::fromIterable) // "Mono<List<ResultOfMaps>>" -> Flux<ResultOfMaps>
+			.flatMap(store -> cacheStore(store.getStoreId(), store))
+			.then();
+//			.doOnSuccess(unused -> System.out.println("complete saveStoresInCache")); // check this method.
+	}
+
+
+	// @CachePut does not support Mono and Flux.
+	public Mono<ResultOfMaps> cacheStore(String storeId, ResultOfMaps store) {
+    return Mono.fromSupplier(
+        () -> {
+          cache.put(storeId, store);
+//          System.out.println("성공!");
+          return store;
+        });
+	}
+
+
+	public Mono<ResultOfMaps> getStoreFromCache(String storeId) {
+		return Mono.justOrEmpty(cache.get(storeId));
+	}
+
 
 	// search many places three times :: on store list
 	public Mono<List<ResultOfMaps>> searchPlacesMultiplePages(String query, String category_group_code, double x, double y, int radius, int page) {
@@ -116,7 +157,7 @@ public class KakaoMapService {
 			resultOfMaps.setLocalNumberAddress(firstItem.path("address_name").asText());
 			resultOfMaps.setLoadNameAddress(firstItem.path("road_address_name").asText());
 			resultOfMaps.setPhoneNumber(firstItem.path("phone").asText());
-			resultOfMaps.setStoreId(firstItem.path("id").asDouble());
+			resultOfMaps.setStoreId(firstItem.path("id").asText());
 
 		} else {
 			resultOfMaps.setStoreName("검색 결과가 없습니다.");
