@@ -2,6 +2,7 @@ package com.example.hotspot_local.service;
 
 import com.example.hotspot_local.controller.response.ResultOfMaps;
 import com.fasterxml.jackson.databind.JsonNode;
+import net.sf.jsqlparser.statement.select.First;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -25,6 +26,9 @@ public class KakaoMapService {
 
 	// Mono : execute once
 	// Flux : execute many times
+
+
+	// todo : id 내역 추가해서, 해당 부분으로 음식점 구분할 수 있도록 하기.
 
 	// search many places (15 stores) :: on map
 	public Mono<List<ResultOfMaps>> searchPlaces(String query, String category_group_code, double x, double y, int radius, int page) {
@@ -58,6 +62,7 @@ public class KakaoMapService {
 				resultOfMaps.setLocalNumberAddress(item.path("address_name").asText());
 				resultOfMaps.setLoadNameAddress(item.path("road_address_name").asText());
 				resultOfMaps.setPhoneNumber(item.path("phone").asText());
+				resultOfMaps.setStoreId(item.path("id").asDouble());
 
 				results.add(resultOfMaps);
 			}
@@ -111,6 +116,8 @@ public class KakaoMapService {
 			resultOfMaps.setLocalNumberAddress(firstItem.path("address_name").asText());
 			resultOfMaps.setLoadNameAddress(firstItem.path("road_address_name").asText());
 			resultOfMaps.setPhoneNumber(firstItem.path("phone").asText());
+			resultOfMaps.setStoreId(firstItem.path("id").asDouble());
+
 		} else {
 			resultOfMaps.setStoreName("검색 결과가 없습니다.");
 		}
