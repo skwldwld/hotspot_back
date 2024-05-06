@@ -80,33 +80,33 @@ public class KakaoMapService {
 
 	// store/put stores_list in cache -> if we want to check the cache, then change the code.
 //	1st method..
-	public Mono<Void> saveStoresInCache(String query, String category_group_code, double x, double y, int radius, int page) {
-		return searchPlaces(query, category_group_code, x, y, radius, page)
-			.flatMapMany(Flux::fromIterable) // translate "Mono<List<ResultOfMaps>>" to Flux<ResultOfMaps>
-			.flatMap(store -> cacheStore(store.getStoreId(), store))
-			.then();
-	}
-
-	// @CachPut은 Mono와 Flux를 지원하지 않는다.
-	public Mono<ResultOfMaps> cacheStore(String storeId, ResultOfMaps store) {
-		return Mono.fromSupplier(() -> {
-			cache.put(storeId, store);
-			return store;
-		});
-	}
-////    maybe it is error code.. @CachePut does not support Mono and Flux.
-////	2nd method..
 //	public Mono<Void> saveStoresInCache(String query, String category_group_code, double x, double y, int radius, int page) {
 //		return searchPlaces(query, category_group_code, x, y, radius, page)
 //			.flatMapMany(Flux::fromIterable) // translate "Mono<List<ResultOfMaps>>" to Flux<ResultOfMaps>
-//			.flatMap(store -> Mono.just(cacheStore(store.getStoreId(), store)))
+//			.flatMap(store -> cacheStore(store.getStoreId(), store))
 //			.then();
 //	}
-//
-//	@CachePut(value = "ResultOfMaps", key = "#storeId")
-//	public ResultOfMaps cacheStore(String storeId, ResultOfMaps store) {
-//		return store;
-//	}
+
+	public Mono<Void> saveStoresInCache(String query, String category_group_code, double x, double y, int radius, int page) {
+//		System.out.println("start saveStoresInCache");
+		return searchPlaces(query, category_group_code, x, y, radius, page)
+			.flatMapMany(Flux::fromIterable) // "Mono<List<ResultOfMaps>>" -> Flux<ResultOfMaps>
+			.flatMap(store -> cacheStore(store.getStoreId(), store))
+			.then();
+//			.doOnSuccess(unused -> System.out.println("complete saveStoresInCache")); // check this method.
+	}
+
+
+	// @CachePut does not support Mono and Flux.
+	public Mono<ResultOfMaps> cacheStore(String storeId, ResultOfMaps store) {
+    return Mono.fromSupplier(
+        () -> {
+          cache.put(storeId, store);
+//          System.out.println("성공!");
+          return store;
+        });
+	}
+
 
 	public Mono<ResultOfMaps> getStoreFromCache(String storeId) {
 		return Mono.justOrEmpty(cache.get(storeId));

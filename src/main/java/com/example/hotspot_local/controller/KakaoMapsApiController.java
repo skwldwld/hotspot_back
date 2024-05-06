@@ -28,17 +28,30 @@ public class KakaoMapsApiController {
 	}
 
 	// before find 15 stores (use cache)
-	@GetMapping("/searches/Stores")    // the number of food store is 15 stores. <- use this api.
+//	@GetMapping("/searches/Stores")    // the number of food store is 15 stores. <- use this api.
+//	public Mono<List<ResultOfMaps>> searchPlacesNoCache(@RequestParam double x, @RequestParam double y, @RequestParam int radius) {
+//	    String query = "음식점";
+//	    String category_group_code = "FD6";
+//	    int page = 1;
+//		kakaoMapService.saveStoresInCache(query, category_group_code, x, y, radius, page);
+//		return kakaoMapService.searchPlaces(query, category_group_code, x, y, radius, page);
+//	}
+
+	@GetMapping("/searches/Stores")
 	public Mono<List<ResultOfMaps>> searchPlacesNoCache(@RequestParam double x, @RequestParam double y, @RequestParam int radius) {
-	    String query = "음식점";
-	    String category_group_code = "FD6";
-	    int page = 1;
-		kakaoMapService.saveStoresInCache(query, category_group_code, x, y, radius, page);
-		return kakaoMapService.searchPlaces(query, category_group_code, x, y, radius, page);
+		String query = "음식점";
+		String category_group_code = "FD6";
+		int page = 1;
+		// reactive programming (Mono랑 Flux 사용하는 것)에서는 asynchroneous하게 동작하기 때문에, 이렇게 chaining/subscribe를 통해 순차적으로 동작하도록 해야 함. (.then()을 사용해야 함.)
+		// 그렇지 않을 경우, 실행할 필요가 없다고 여기고 실행하지 않고 넘어감.
+		return kakaoMapService.saveStoresInCache(query, category_group_code, x, y, radius, page)
+			.then(kakaoMapService.searchPlaces(query, category_group_code, x, y, radius, page));
 	}
 
+
+
 	// 폼 바꿔야 함. -> request로 받아서 처리하는 코드로 바꿀 것ㅎ
-	@GetMapping("/searches/Stores/{storeId}")
+	@GetMapping("/searches/Stores/")
 	public Mono<ResultOfMaps> searchStore(@RequestParam String storeId) {
 		return kakaoMapService.getStoreFromCache(storeId);
 	}
