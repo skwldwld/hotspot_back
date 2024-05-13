@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class KakaoMapService {
+
 	@Value("${kakao.api.key}")
 	private String kakaoApiKey;
 
@@ -110,12 +111,10 @@ public class KakaoMapService {
 
 	// store/put stores_list in cache -> if we want to check the cache, then change the code.
 	public Mono<Void> saveStoresInCache(String query, String category_group_code, double x, double y, int radius, int page) {
-//		System.out.println("start saveStoresInCache");
 		return searchPlacesInCache(query, category_group_code, x, y, radius, page)
 			.flatMapMany(Flux::fromIterable) // "Mono<List<ResultOfMaps>>" -> Flux<ResultOfMaps>
 			.flatMap(store -> cacheStore(store.getStoreId(), store))
 			.then();
-//			.doOnSuccess(unused -> System.out.println("complete saveStoresInCache")); // check this method.
 	}
 
 
@@ -124,7 +123,6 @@ public class KakaoMapService {
     return Mono.fromSupplier(
         () -> {
           cache.put(storeId, store);
-//          System.out.println("성공!");
           return store;
         });
 	}
@@ -184,6 +182,7 @@ public class KakaoMapService {
 
 		return resultOfMaps;
 	}
+
 
 
 }
