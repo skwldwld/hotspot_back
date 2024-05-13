@@ -1,4 +1,4 @@
-package com.example.hotspot_local.controller.request;
+package com.example.hotspot_local.controller.request.AboutMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

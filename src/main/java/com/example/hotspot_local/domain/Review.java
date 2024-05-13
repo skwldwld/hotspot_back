@@ -1,5 +1,6 @@
 package com.example.hotspot_local.domain;
 
+import com.example.hotspot_local.dto.ReviewDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,20 +19,39 @@ public class Review {
 	@Column(nullable = false)
 	private Long reviewId;
 
+	@Column(nullable = false)
+	private String title;
+
+	@Column(nullable = false)
 	private String comment;
 
 	@Column(nullable = false)
-	private int storeSpicyLevel;
+	private int reviewSpicyLevel;
 
 	private String reviewImage;
 
 	private String foodName;
 
-	@Column(nullable = false)
-	private String storeName;
+	private String storeId;
 
+//	private String userToken;   // userId로 구분할 듯! userToken은 발급 여부만 확인하는 걸로..
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "userId")
 	private User user;
+
+	public static Review from(ReviewDto reviewDto, User user) {
+		return Review.builder()
+				.title(reviewDto.getTitle())
+				.comment(reviewDto.getComment())
+				.reviewSpicyLevel(reviewDto.getReviewSpicyLevel())
+				.reviewImage(reviewDto.getReviewImage())
+				.foodName(reviewDto.getFoodName())
+				.storeId(reviewDto.getStoreId())
+				.user(user)
+				.build();
+	}
+
+
+
 
 }
