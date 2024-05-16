@@ -37,6 +37,8 @@ public class KakaoMapsApiController {
 
 
 
+// Behind codes are temporal codes for developing.
+
 	@GetMapping("/search")
 	public Mono<ResultOfDetailStoreInfoResponse> searchPlace(@RequestParam double x, @RequestParam double y, @RequestParam int radius) {
 		String query = "음식점";

@@ -22,7 +22,7 @@ public class StoreSpicyLevelController {
 
 	private final ReviewService reviewService;
 
-	@GetMapping("/store/spicy-level")
+	@GetMapping("/get/store/spicy-level")
 	public ResponseEntity<StoreReviewInfo> getStoreSpicyLevel(@RequestParam String storeId) {
 		StoreReviewInfo storeReviewInfo = reviewService.getStoreSpicyLevel(storeId);
 		return ResponseEntity.ok().body(storeReviewInfo);
