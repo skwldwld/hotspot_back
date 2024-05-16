@@ -2,16 +2,14 @@ package com.example.hotspot_local.domain;
 
 import com.example.hotspot_local.dto.ReviewDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "user") // 순환참조 방지
 public class Review {
 
 	@Id
