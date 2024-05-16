@@ -20,14 +20,7 @@ public class KakaoMapsApiController {
 
 	private final KakaoMapService kakaoMapService;
 
-	@GetMapping("/search")
-	public Mono<ResultOfDetailStoreInfoResponse> searchPlace(@RequestParam double x, @RequestParam double y, @RequestParam int radius) {
-		String query = "음식점";
-		String category_group_code = "FD6";
-		return kakaoMapService.searchPlace(query, category_group_code, x, y, radius);
-	}
-
-	@GetMapping("/searches/Stores")
+	@GetMapping("/get/stores")
 	public Mono<List<ResultOfStoresInfo>> searchPlacesCache(@RequestParam double x, @RequestParam double y, @RequestParam int radius) {
 		String query = "음식점";
 		String category_group_code = "FD6";
@@ -36,9 +29,19 @@ public class KakaoMapsApiController {
 			.then(kakaoMapService.searchPlaces(query, category_group_code, x, y, radius, page));
 	}
 
-	@GetMapping("/searches/Stores/")
+	@GetMapping("/get/stores/detail")
 	public Mono<ResultOfDetailStoreInfoResponse> searchStore(@RequestParam String storeId) {
 		return kakaoMapService.getStoreFromCache(storeId);
+	}
+
+
+
+
+	@GetMapping("/search")
+	public Mono<ResultOfDetailStoreInfoResponse> searchPlace(@RequestParam double x, @RequestParam double y, @RequestParam int radius) {
+		String query = "음식점";
+		String category_group_code = "FD6";
+		return kakaoMapService.searchPlace(query, category_group_code, x, y, radius);
 	}
 
 	@GetMapping("/searches/threetimes")    // the number of food store is 45 stores.

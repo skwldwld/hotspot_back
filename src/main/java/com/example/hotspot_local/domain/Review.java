@@ -1,6 +1,7 @@
 package com.example.hotspot_local.domain;
 
 import com.example.hotspot_local.dto.ReviewDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,9 +33,9 @@ public class Review {
 
 	private String storeId;
 
-//	private String userToken;   // userId로 구분할 듯! userToken은 발급 여부만 확인하는 걸로..
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId")
+	@JsonBackReference  // 순환참조 방지
 	private User user;
 
 	public static Review from(ReviewDto reviewDto, User user) {

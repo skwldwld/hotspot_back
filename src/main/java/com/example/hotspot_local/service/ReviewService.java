@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +35,7 @@ public class ReviewService {
 	}
 
 	public StoreReviewInfo getStoreSpicyLevel(String storeId) {
-		ArrayList<Review> reviewList = reviewRepository.findByStoreId(storeId);
+		ArrayList<Review> reviewList = reviewRepository.findByStoreId(storeId); // need User info, so use Review
 
 		ArrayList<Integer> spicyLevelList = getSpicyLevelList(reviewList);
 		ArrayList<Integer> spicyLevelCountList = getSpicyLevelCount(reviewList);
@@ -41,6 +43,14 @@ public class ReviewService {
 		ArrayList<Double> calculateSpicyLevelAvg = calculateSpicyLevelAverage(spicyLevelList, spicyLevelCountList);
 
 		return new StoreReviewInfo(calculateSpicyLevelAvg, spicyLevelCountList);
+	}
+
+	// flatMap : 1개의 요소를 여러개의 요소로 변환할 때 사용
+	// map : 1개의 요소를 1개의 요소로 변환할 때 사용
+	public ArrayList<ReviewDto> getReviewList(String storeId) {
+		return (ArrayList<ReviewDto>) reviewRepository.findByStoreId(storeId).stream()
+			.map(ReviewDto::from)
+			.collect(Collectors.toList());
 	}
 
 	// [0] = all, [1] = 맵구, [2] = 맵노스, [3] = 맵물주, [4] = 위암 플래너, [5] = 실비요정

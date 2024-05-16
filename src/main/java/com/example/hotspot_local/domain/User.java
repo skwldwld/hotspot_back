@@ -1,11 +1,9 @@
 package com.example.hotspot_local.domain;
 
 import com.example.hotspot_local.domain.Review;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +28,11 @@ public class User {
 
 	private int personalSpicyLevel;
 
+	@JsonManagedReference   // 순환 참조 방지
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviewList = new ArrayList<>();
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Store> storeList = new ArrayList<>();
 
