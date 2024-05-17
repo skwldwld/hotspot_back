@@ -27,6 +27,7 @@ public class User {
 	private String characterImage;
 
 	private int personalSpicyLevel;
+	private String email;
 
 	@JsonManagedReference   // 순환 참조 방지
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -18,6 +18,7 @@ public class UserDto {
 	private String nickName;
 	private String characterImage;
 	private int personalSpicyLevel;
+	private String email;
 	private List<ReviewDto> reviewList;
 	private List<StoreDto> storeList;
 

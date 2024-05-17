@@ -10,6 +10,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+// 여긴 login한 유저 관련 정보만 담을까? 그리고 User에 이제 다른 test 결과들 넣는 거 어떤데?
+// 아님 이거 없애고 걍 User에 바로 다 정보 넣는 방식을 사용하던가 해야겠네..
 public class UserEntity {
 
 	@Id
