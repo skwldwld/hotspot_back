@@ -9,6 +9,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,6 +34,19 @@ public class ReviewDto {
 		this.foodName = userReviewRequest.getFoodName();
 		this.storeId = userReviewRequest.getStoreId();
 		this.userId = Integer.parseInt(userReviewRequest.getUserId());
+	}
+
+	public static ReviewDto from(Review review){
+		return ReviewDto.builder()
+				.title(review.getTitle())
+				.comment(review.getComment())
+				.reviewSpicyLevel(review.getReviewSpicyLevel())
+				.reviewImage(review.getReviewImage())
+				.foodName(review.getFoodName())
+				.storeId(review.getStoreId())
+				.userId(review.getUser().getUserId().intValue())
+				.build();
+
 	}
 
 }

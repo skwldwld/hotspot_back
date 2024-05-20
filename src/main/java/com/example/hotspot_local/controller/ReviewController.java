@@ -13,7 +13,7 @@ public class ReviewController {
 
 	private final ReviewService reviewService;
 
-	@PostMapping("/review")
+	@PostMapping("/post/store/review")
 	public ResponseEntity<Void> review(@RequestBody UserReviewRequest userReviewRequest) {
 		reviewService.save(userReviewRequest);
 		return ResponseEntity.ok().build();
