@@ -1,6 +1,15 @@
 package com.example.hotspot_local.controller.request.AboutSurvey;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserScoreRequest {
-//	검사 결과 받아와서 처리하는 논리로 수정 -
-	private int quizScore[] = new int[10];
+
+    private int[] surveyScore = new int[17];
+	private String email;
+
 }

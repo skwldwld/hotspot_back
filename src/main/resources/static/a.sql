@@ -16,3 +16,4 @@ values( '추천', null, null, 1, '26546824', '하하', 1);
 insert into silbi_portfolio_likelion.review(comment, food_name, review_image, review_spicy_level, store_id, title, user_id)
 values( '추천', null, null, 4, '26546824', '하하', 1);
 
+delete from user_entity where id = 5;
