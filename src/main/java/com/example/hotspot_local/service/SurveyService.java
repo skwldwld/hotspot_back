@@ -28,7 +28,6 @@ public class SurveyService {
 		}
 
 
-		return userScoreRequest;
 	}
 
 }
