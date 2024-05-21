@@ -1,5 +1,6 @@
 package com.example.hotspot_local.controller;
 
+import com.example.hotspot_local.controller.response.AboutMyPage.MemberInfoResponse;
 import com.example.hotspot_local.controller.response.AboutMyPage.MemberReviewListResponse;
 import com.example.hotspot_local.dto.ReviewDto;
 import com.example.hotspot_local.repository.StoreRepository;
@@ -22,8 +23,9 @@ public class MyPageController {
 	private final StoreRepository storeRepository;
 
 	@GetMapping("/auth/mypage/memberInfo")
-	public ResponseEntity<Void> memberInfo(@RequestParam String userEmail) {
-		return ResponseEntity.ok().build();
+	public ResponseEntity<MemberInfoResponse> memberInfo(@RequestParam String userEmail) {
+		MemberInfoResponse memberInfoResponse = myPageService.findMemberInfo(userEmail);
+		return ResponseEntity.ok().body(memberInfoResponse);
 	}
 
 	@GetMapping("/auth/mypage/reviewlist")
