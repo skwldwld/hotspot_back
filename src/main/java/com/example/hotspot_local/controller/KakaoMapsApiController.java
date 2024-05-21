@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,7 +35,22 @@ public class KakaoMapsApiController {
 		return kakaoMapService.getStoreFromCache(storeId);
 	}
 
+	@GetMapping("/get/stores/specific")
+	public ArrayList<ResultOfStoresInfo> searchSpecificStore(@RequestParam double x, @RequestParam double y, @RequestParam int radius, @RequestParam int spicyLevel) {
+		String query = "음식점";
+		String category_group_code = "FD6";
+		int page = 3;
+		Mono<List<ResultOfStoresInfo>> tmp  = kakaoMapService.searchPlacesMultiplePages(query, category_group_code, x, y, radius, page);
+		return kakaoMapService.categorizedStores(tmp, spicyLevel);
+	}
 
+	@GetMapping("/searches/threetimes")    // the number of food store is 45 stores.
+	public Mono<List<ResultOfStoresInfo>> searchPlacesThreeTimes(@RequestParam double x, @RequestParam double y, @RequestParam int radius)  {
+		String query = "음식점";
+		String category_group_code = "FD6";
+		int page = 3;
+		return kakaoMapService.searchPlacesMultiplePages(query, category_group_code, x, y, radius, page);
+	}
 
 
 // Behind codes are temporal codes for developing.
@@ -44,14 +60,6 @@ public class KakaoMapsApiController {
 		String query = "음식점";
 		String category_group_code = "FD6";
 		return kakaoMapService.searchPlace(query, category_group_code, x, y, radius);
-	}
-
-	@GetMapping("/searches/threetimes")    // the number of food store is 45 stores.
-	public Mono<List<ResultOfDetailStoreInfoResponse>> searchPlacesTreeTimes(@RequestParam double x, @RequestParam double y, @RequestParam int radius)  {
-		String query = "음식점";
-		String category_group_code = "FD6";
-		int page = 3;
-		return kakaoMapService.searchPlacesMultiplePages(query, category_group_code, x, y, radius, page);
 	}
 }
 
