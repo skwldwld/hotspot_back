@@ -2,6 +2,8 @@ package com.example.hotspot_local.service;
 
 import com.example.hotspot_local.controller.response.AboutMap.ResultOfDetailStoreInfoResponse;
 import com.example.hotspot_local.controller.response.AboutMap.ResultOfStoresInfo;
+import com.example.hotspot_local.domain.Review;
+import com.example.hotspot_local.repository.ReviewRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -30,8 +33,10 @@ public class KakaoMapService {
 		cache = new ConcurrentHashMap<>();
 	}
 
-	public KakaoMapService(WebClient.Builder webClientBuilder) {
+	public KakaoMapService(WebClient.Builder webClientBuilder, ReviewRepository reviewRepository, ReviewService reviewService) {
 		this.webClient = webClientBuilder.baseUrl("https://dapi.kakao.com").build();
+		this.reviewRepository = reviewRepository;
+		this.reviewService = reviewService;
 	}
 
 	// search many places (15 stores) :: on map
@@ -133,11 +138,11 @@ public class KakaoMapService {
 
 
 	// search many places three times :: on store list
-	public Mono<List<ResultOfDetailStoreInfoResponse>> searchPlacesMultiplePages(String query, String category_group_code, double x, double y, int radius, int page) {
-		List<Mono<List<ResultOfDetailStoreInfoResponse>>> pageRequests = new ArrayList<>();
+	public Mono<List<ResultOfStoresInfo>> searchPlacesMultiplePages(String query, String category_group_code, double x, double y, int radius, int page) {
+		List<Mono<List<ResultOfStoresInfo>>> pageRequests = new ArrayList<>();
 
 		for (int i = 1; i <= page; i++) {
-			Mono<List<ResultOfDetailStoreInfoResponse>> pageRequest = searchPlacesInCache(query, category_group_code, x, y, radius, i);
+			Mono<List<ResultOfStoresInfo>> pageRequest = searchPlaces(query, category_group_code, x, y, radius, i);
 			pageRequests.add(pageRequest);
 		}
 
@@ -184,5 +189,37 @@ public class KakaoMapService {
 	}
 
 
+	// 이 밑의 함수는 제거하는 걸로..!
+	public Mono<ResultOfDetailStoreInfoResponse> searchSpecificStore(int spicyLevel) {
+		// if spicyLevel is 1, then return the store which has the lowest spicyLevel.
+		// if spicyLevel is 5, then return the store which has the highest spicyLevel.
+		// if spicyLevel is 3, then return the store which has the average spicyLevel.
+		// if spicyLevel is 2, then return the store which has the second lowest spicyLevel.
+		// if spicyLevel is 4, then return the store which has the second highest spicyLevel.
+		// if spicyLevel is 0, then return the store which has the average spicyLevel.
 
+//		searchPlaces()
+
+		return null;
+	}
+
+	private final ReviewRepository reviewRepository;
+	private final ReviewService reviewService;
+
+	public ArrayList<ResultOfStoresInfo> categorizedStores(Mono<List<ResultOfStoresInfo>> tmp, int spicyLevel) {
+
+		ArrayList<ResultOfStoresInfo> targetStoreList = new ArrayList<>();
+
+		for(ResultOfStoresInfo store : Objects.requireNonNull(tmp.block())) {
+			ArrayList<Review> specificStoreReviewList = reviewRepository.findByStoreId(store.getStoreId());
+			ArrayList<Integer> specificStoreSpicyLevelReview = reviewService.getSpicyLevelList(specificStoreReviewList);
+
+			int specificStoreSpicyLevel = (int)specificStoreSpicyLevelReview.get(0);
+
+			if(specificStoreSpicyLevel == spicyLevel) {
+				targetStoreList.add(store);
+			}
+		}
+		return targetStoreList;
+	}
 }

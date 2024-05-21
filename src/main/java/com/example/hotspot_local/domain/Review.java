@@ -31,6 +31,7 @@ public class Review {
 
 	private String foodName;
 
+	@Column(nullable = false)
 	private String storeId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
