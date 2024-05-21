@@ -13,10 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class UserDto {
-	private Long userId;
+//	private Long userId;
 	private String userName;
 	private String nickName;
-	private String characterImage;
 	private int personalSpicyLevel;
 	private String email;
 	private List<ReviewDto> reviewList;

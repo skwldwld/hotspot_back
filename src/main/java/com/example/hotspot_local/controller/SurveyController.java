@@ -1,6 +1,7 @@
 package com.example.hotspot_local.controller;
 
 import com.example.hotspot_local.controller.request.AboutSurvey.UserScoreRequest;
+import com.example.hotspot_local.controller.response.AboutSurvey.ResultUserTestResponse;
 import com.example.hotspot_local.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,10 @@ public class SurveyController {
 	private final SurveyService surveyService;
 
 	@GetMapping("/get/survey/result")
-	public ResponseEntity<UserScoreRequest> survey(@RequestParam String email, @RequestParam int[] surveyScore){
+	public ResponseEntity<ResultUserTestResponse> survey(@RequestParam String email, @RequestParam int[] surveyScore){
 		UserScoreRequest userScoreRequest = new UserScoreRequest(surveyScore, email);
-		int userSpicyLevel = surveyService.getUserScoreRequest(userScoreRequest);
-		return ResponseEntity.ok().build(); //.body();
+		ResultUserTestResponse resultUserTestResponse = surveyService.getUserScoreRequest(userScoreRequest);
+		return ResponseEntity.ok().body(resultUserTestResponse);
 	}
 
 }

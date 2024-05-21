@@ -24,9 +24,11 @@ public class User {
 
 	private String nickName;
 
-	private String characterImage;
+//	private String characterImage;
 
 	private int personalSpicyLevel;
+
+	@Column(unique = true)
 	private String email;
 
 	@JsonManagedReference   // 순환 참조 방지
@@ -36,5 +38,26 @@ public class User {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Store> storeList = new ArrayList<>();
+
+
+	public static User from(String userName, String nickName, int personalSpicyLevel, String email) {
+		return User.builder()
+				.userName(userName)
+				.nickName(nickName)
+				.personalSpicyLevel(personalSpicyLevel)
+				.email(email)
+				.build();
+	}
+
+	public static User form(String userName, String nickName, int personalSpicyLevel, String email, ArrayList<Review> reviewList, ArrayList<Store> storeList) {
+		return User.builder()
+				.userName(userName)
+				.nickName(nickName)
+				.personalSpicyLevel(personalSpicyLevel)
+				.email(email)
+				.reviewList(reviewList)
+				.storeList(storeList)
+				.build();
+	}
 
 }

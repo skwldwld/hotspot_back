@@ -26,10 +26,10 @@ public class ReviewService {
 
 	public void save(UserReviewRequest userReviewRequest) throws NullPointerException {
 
-		UserException.UserLoginCheck(userReviewRequest.getUserId());
+		UserException.UserLoginCheck(userReviewRequest.getUserEmail());
 
 		ReviewDto reviewDto = new ReviewDto(userReviewRequest);
-		User targetUser = userRepository.findByUserId(Long.parseLong(userReviewRequest.getUserId()));
+		User targetUser = userRepository.findByEmail(userReviewRequest.getUserEmail());
 
 		reviewRepository.save(Review.from(reviewDto, targetUser));
 	}

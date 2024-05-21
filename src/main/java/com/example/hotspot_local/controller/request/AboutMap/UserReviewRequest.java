@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class UserReviewRequest {
 	String storeId;     // find the store from cache
-	String userId;   // find user from DB -> save the review list -> after, it looks in mypage.
+	String userEmail;   // find user from DB -> save the review list -> after, it looks in mypage.
 	int reviewSpicyLevel;     // spicy level
 	String title;   	// title
 	String comment;         // comment

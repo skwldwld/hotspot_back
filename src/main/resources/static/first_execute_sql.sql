@@ -1,31 +1,5 @@
-insert into silbi_portfolio_likelion.user values(2, '22000116@handong.ac.kr', null, 2, '바보 이반');
-
-# 처음이 review_id, 두번째가 comment, 세번째가 foodName, 네번째가 review_image,
-# 다섯번째가 review_spicyLevel, 여섯번째가 store_id, 일곱번짝 title, 마지막이 user_id
-insert into silbi_portfolio_likelion.review(comment, food_name, review_image, review_spicy_level, store_id, title, user_email)
-values('추천', null, null, 5, '26546824', '하하', '22000116@handong.ac.kr');
-
-insert into silbi_portfolio_likelion.review(comment, food_name, review_image, review_spicy_level, store_id, title, user_email)
-values( '추천', null, null, 4, '26546824', '하하', '22000116@handong.ac.kr');
-
-insert into silbi_portfolio_likelion.review(comment, food_name, review_image, review_spicy_level, store_id, title, user_email)
-values(  '추천', null, null, 2, '26546824', '하하', '22000116@handong.ac.kr');
-
-insert into silbi_portfolio_likelion.review(comment, food_name, review_image, review_spicy_level, store_id, title, user_email)
-values( '추천', null, null, 1, '26546824', '하하', '22000116@handong.ac.kr');
-
-insert into silbi_portfolio_likelion.review(comment, food_name, review_image, review_spicy_level, store_id, title, user_email)
-values( '추천', null, null, 4, '26546824', '하하', '22000116@handong.ac.kr');
-
-# 큰앞면, 뒷면, 작은앞면
-#   private String characterFrontBigImage;
-# 	private String characterFrontSmallImage;
-# 	private String characterBackImage;
-# 	private String characterName;
-# 	private String characterInfo;
-
-insert into user_entity(id, email, role, username) values(1,'22000116@handong.ac.kr', 'User', '학부생 김승환');
-
+# 로그인 때문에..!
+insert into silbi_portfolio_likelion.user_entity(id, email, role, username) values(1,'22000116@handong.ac.kr', 'User', '학부생 김승환');
 
 insert into silbi_portfolio_likelion.user_character(character_back_image, character_front_big_image, character_front_small_image, character_info, character_name, spicy_level)
 values('https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/17c47407-f793-447b-b718-75f5f7270b03%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4.png',
@@ -69,19 +43,3 @@ values('https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.a
 
 매운맛을 통달한 당신은 매운 음식 앞에서 두려움 따위 없습니다. 캡사이신을 물처럼 다루는 당신! 어떠한 매운 맛의 공격에도 끄떡 없는 당신! 어떠한 매운 음식이든 그대에겐 식은 죽 먹기입니다.'
     ,'실비요정',5);
-
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/2785897e-6396-4761-87ab-959b51fb6b60%ED%81%B0%EB%B2%84%EC%A0%84.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/df75f355-717b-452e-9dd6-cb5caa57a085%ED%81%B0%EB%B2%84%EC%A0%84-1.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/1c61386d-db18-48d3-aaff-ee95fe618b2c%ED%81%B0%EB%B2%84%EC%A0%84-2.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/ae509df6-4896-451c-84e7-dcaa2355c716%ED%81%B0%EB%B2%84%EC%A0%84-3.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/d82019ff-1c40-4f4a-913b-bdec4a6dedab%ED%81%B0%EB%B2%84%EC%A0%84-4.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/17c47407-f793-447b-b718-75f5f7270b03%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/4672999e-2866-4473-8718-938b3681ebde%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4-1.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/63994b50-f49e-4cb3-9377-80bccb900bbf%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4-2.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/6560c15c-b6db-4f77-bda1-c5fcfbb4c5e5%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4-3.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/b0b3d831-353e-4fb8-affb-257526c32836%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4-4.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/886383da-248f-4c03-a022-7b591ba6ab82%EC%9E%91%EC%9D%80%EB%B2%84%EC%A0%84.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/719ad0dd-e052-480e-8020-ca7d3e92c5ce%EC%9E%91%EC%9D%80%EB%B2%84%EC%A0%84-1.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/ee6733f7-34b2-4b70-8a64-21b4b5ae1554%EC%9E%91%EC%9D%80%EB%B2%84%EC%A0%84-2.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/9a65494d-4fa7-4563-8ca9-ad53d00a2108%EC%9E%91%EC%9D%80%EB%B2%84%EC%A0%84-3.png
-# https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/3084d604-6f80-4e0c-81f4-45ec22beb264%EC%9E%91%EC%9D%80%EB%B2%84%EC%A0%84-4.png

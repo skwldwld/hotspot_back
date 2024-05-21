@@ -1,13 +1,15 @@
 package com.example.hotspot_local.controller.response.AboutSurvey;
 
-import com.example.hotspot_local.dto.CharacterDto;
+import com.example.hotspot_local.dto.UserCharacterDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.ArrayList;
 
+@Data
+@AllArgsConstructor
 public class ResultUserTestResponse {
-	private String name;
-	private String characterImage;
-	private String characterName;
-//	private
-	private ArrayList<CharacterDto> otherCharacter;
+
+	private UserCharacterDto myCharacter;
+	private ArrayList<UserCharacterDto> otherCharacter;
 }

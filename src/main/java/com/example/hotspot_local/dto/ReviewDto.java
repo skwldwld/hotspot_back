@@ -24,7 +24,7 @@ public class ReviewDto {
 	private String reviewImage;
 	private String foodName;
 	private String storeId;
-	private int userId;
+	private String userEmail;
 
 	public ReviewDto(UserReviewRequest userReviewRequest) {
 		this.title = userReviewRequest.getTitle();
@@ -33,7 +33,7 @@ public class ReviewDto {
 		this.reviewImage = userReviewRequest.getReviewImage();
 		this.foodName = userReviewRequest.getFoodName();
 		this.storeId = userReviewRequest.getStoreId();
-		this.userId = Integer.parseInt(userReviewRequest.getUserId());
+		this.userEmail = userReviewRequest.getUserEmail();
 	}
 
 	public static ReviewDto from(Review review){
@@ -44,7 +44,7 @@ public class ReviewDto {
 				.reviewImage(review.getReviewImage())
 				.foodName(review.getFoodName())
 				.storeId(review.getStoreId())
-				.userId(review.getUser().getUserId().intValue())
+				.userEmail(review.getUser().getEmail())
 				.build();
 
 	}

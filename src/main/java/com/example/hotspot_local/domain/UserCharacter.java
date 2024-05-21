@@ -11,15 +11,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Character {
+public class UserCharacter {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
-	private String id;
+	private Long id;
 
-	private String characterImage;
+	private String characterFrontBigImage;
+	private String characterFrontSmallImage;
+	private String characterBackImage;
 	private String characterName;
 	private String characterInfo;
+	private int spicyLevel;
 
 }

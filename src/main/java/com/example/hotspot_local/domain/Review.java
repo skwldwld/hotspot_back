@@ -34,7 +34,7 @@ public class Review {
 	private String storeId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_email", referencedColumnName = "Email")
 	@JsonBackReference  // 순환참조 방지
 	private User user;
 

@@ -37,7 +37,7 @@ public class Store {
 	private String phoneNumber;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_email", referencedColumnName = "Email")
 	private User user;
 
 
