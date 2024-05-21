@@ -21,6 +21,7 @@ public class UserCharacter {
 	private String characterFrontBigImage;
 	private String characterFrontSmallImage;
 	private String characterBackImage;
+	private String characterMyPageImage;
 	private String characterName;
 	private String characterInfo;
 	private int spicyLevel;

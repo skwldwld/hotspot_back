@@ -14,6 +14,7 @@ public class UserCharacterDto {
 	private String characterFrontBigImage;
 	private String characterFrontSmallImage;
 	private String characterBackImage;
+	private String characterMyPageImage;
 	private String characterName;
 	private String characterInfo;
 	private int spicyLevel;
@@ -24,6 +25,7 @@ public class UserCharacterDto {
 				.characterFrontBigImage(userCharacter.getCharacterFrontBigImage())
 				.characterFrontSmallImage(userCharacter.getCharacterFrontSmallImage())
 				.characterBackImage(userCharacter.getCharacterBackImage())
+				.characterMyPageImage(userCharacter.getCharacterMyPageImage())
 				.characterName(userCharacter.getCharacterName())
 				.characterInfo(userCharacter.getCharacterInfo())
 				.spicyLevel(userCharacter.getSpicyLevel())

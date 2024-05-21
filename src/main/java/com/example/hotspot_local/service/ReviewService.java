@@ -2,6 +2,7 @@ package com.example.hotspot_local.service;
 
 import com.example.hotspot_local.controller.request.AboutMap.UserReviewRequest;
 import com.example.hotspot_local.controller.response.AboutMap.StoreReviewInfo;
+import com.example.hotspot_local.controller.response.AboutMyPage.MemberReviewListResponse;
 import com.example.hotspot_local.domain.Review;
 import com.example.hotspot_local.domain.User;
 import com.example.hotspot_local.dto.ReviewDto;
@@ -98,11 +99,14 @@ public class ReviewService {
 		return spicyLevelAverageList;
 	}
 
-	public ArrayList<ReviewDto> findReviewByUser(String userEmail) {
+	public MemberReviewListResponse findReviewByUser(String userEmail) {
 		ArrayList<Review> reviewList = reviewRepository.findByUserEmail(userEmail);
-		ArrayList<ReviewDto> reviewDtoList = (ArrayList<ReviewDto>) reviewList.stream()
+
+		List<ReviewDto> reviewDtoList = reviewList.stream()
 			.map(ReviewDto::from)
-			.toList();
-		return reviewDtoList;
+			.collect(Collectors.toList());
+
+		return new MemberReviewListResponse(reviewDtoList);
 	}
+
 }

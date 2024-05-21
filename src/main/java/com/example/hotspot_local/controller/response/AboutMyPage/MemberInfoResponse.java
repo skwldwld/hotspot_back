@@ -9,6 +9,7 @@ public class MemberInfoResponse {
 
 	private String userName;
 	private String characterName;
-	private String characterImage;
+	private String characterMyPageImage;
+	private int userSpicyLevel;
 
 }

@@ -1,5 +1,6 @@
 package com.example.hotspot_local.controller;
 
+import com.example.hotspot_local.controller.response.AboutMyPage.MemberReviewListResponse;
 import com.example.hotspot_local.dto.ReviewDto;
 import com.example.hotspot_local.repository.StoreRepository;
 import com.example.hotspot_local.service.MyPageService;
@@ -20,18 +21,21 @@ public class MyPageController {
 	private final ReviewService reviewService;
 	private final StoreRepository storeRepository;
 
-//	@GetMapping("/auth/mypage/memberInfo")
-//	public ResponseEntity<>
+	@GetMapping("/auth/mypage/memberInfo")
+	public ResponseEntity<Void> memberInfo(@RequestParam String userEmail) {
+		return ResponseEntity.ok().build();
+	}
 
 	@GetMapping("/auth/mypage/reviewlist")
-	public ResponseEntity<ArrayList<ReviewDto>> reviewList(@RequestParam String userEmail) {
-		ArrayList<ReviewDto> reviewList = reviewService.findReviewByUser(userEmail);
+	public ResponseEntity<MemberReviewListResponse> reviewList(@RequestParam String userEmail) {
+		MemberReviewListResponse reviewList = reviewService.findReviewByUser(userEmail);
 		return ResponseEntity.ok().body(reviewList);
 	}
 
-	@GetMapping("/auth/mypage/scraplist")
-	public ResponseEntity<Void> scrapList(@RequestParam String userEmail) {
-		return ResponseEntity.ok().build();
-	}
+//	MVP 아님 -> 이번엔 미구현
+//	@GetMapping("/auth/mypage/scraplist")
+//	public ResponseEntity<Void> scrapList(@RequestParam String userEmail) {
+//		return ResponseEntity.ok().build();
+//	}
 
 }
