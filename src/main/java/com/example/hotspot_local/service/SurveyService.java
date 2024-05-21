@@ -38,7 +38,7 @@ public class SurveyService {
 	public void saveUserScore(UserScoreRequest userScoreRequest, UserCharacterDto myCharacter) {
 
 		String userEmail = userScoreRequest.getEmail();
-		if(userEmail == null) return;
+		if(userEmail == null || userEmail.isEmpty()) return;
 
 		UserEntity userEntity = oAuthRepository.findByEmail(userEmail);
 
