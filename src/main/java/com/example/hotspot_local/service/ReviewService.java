@@ -53,7 +53,6 @@ public class ReviewService {
 			.collect(Collectors.toList());
 	}
 
-	// [0] = all, [1] = 맵구, [2] = 맵노스, [3] = 맵물주, [4] = 위암 플래너, [5] = 실비요정
 	public ArrayList<Integer> getSpicyLevelList(ArrayList<Review> reviewList) {
 		ArrayList<Integer> spicyLevelList = new ArrayList<>(Collections.nCopies(6, 0));
 
@@ -99,4 +98,11 @@ public class ReviewService {
 		return spicyLevelAverageList;
 	}
 
+	public ArrayList<ReviewDto> findReviewByUser(String userEmail) {
+		ArrayList<Review> reviewList = reviewRepository.findByUserEmail(userEmail);
+		ArrayList<ReviewDto> reviewDtoList = (ArrayList<ReviewDto>) reviewList.stream()
+			.map(ReviewDto::from)
+			.toList();
+		return reviewDtoList;
+	}
 }
