@@ -188,21 +188,6 @@ public class KakaoMapService {
 		return resultOfMaps;
 	}
 
-
-	// 이 밑의 함수는 제거하는 걸로..!
-	public Mono<ResultOfDetailStoreInfoResponse> searchSpecificStore(int spicyLevel) {
-		// if spicyLevel is 1, then return the store which has the lowest spicyLevel.
-		// if spicyLevel is 5, then return the store which has the highest spicyLevel.
-		// if spicyLevel is 3, then return the store which has the average spicyLevel.
-		// if spicyLevel is 2, then return the store which has the second lowest spicyLevel.
-		// if spicyLevel is 4, then return the store which has the second highest spicyLevel.
-		// if spicyLevel is 0, then return the store which has the average spicyLevel.
-
-//		searchPlaces()
-
-		return null;
-	}
-
 	private final ReviewRepository reviewRepository;
 	private final ReviewService reviewService;
 
