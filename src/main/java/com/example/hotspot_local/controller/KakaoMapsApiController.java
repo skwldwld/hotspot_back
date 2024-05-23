@@ -35,7 +35,7 @@ public class KakaoMapsApiController {
 		return kakaoMapService.getStoreFromCache(storeId);
 	}
 
-	@GetMapping("/get/stores/specific")
+	@GetMapping("/get/stores/specific") // change address (get 생략)
 	public ArrayList<ResultOfStoresInfo> searchSpecificStore(@RequestParam double x, @RequestParam double y, @RequestParam int radius, @RequestParam int spicyLevel) {
 		String query = "음식점";
 		String category_group_code = "FD6";
