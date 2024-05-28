@@ -19,6 +19,9 @@ public class UserCharacterDto {
 	private String characterInfo;
 	private int spicyLevel;
 
+	private String originalColor;
+	private String changedColor;
+
 
 	public static UserCharacterDto form(UserCharacter userCharacter){
 		return UserCharacterDto.builder()
@@ -29,6 +32,8 @@ public class UserCharacterDto {
 				.characterName(userCharacter.getCharacterName())
 				.characterInfo(userCharacter.getCharacterInfo())
 				.spicyLevel(userCharacter.getSpicyLevel())
+				.originalColor(userCharacter.getOriginalColor())
+				.changedColor(userCharacter.getChangedColor())
 				.build();
 	}
 

@@ -27,7 +27,7 @@ values('https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.a
     ,'맵물주',3, 'https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/8fea6cce-8bfe-4885-81e0-289e5a05d45bKakaoTalk_20240521_211859997_03.png');
 
 insert into silbi_portfolio_likelion.user_character(character_back_image, character_front_big_image, character_front_small_image, character_info, character_name, spicy_level, character_my_page_image)
-values('https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/6560c15c-b6db-4f77-bda1-c5fcfbb4c5e5%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4-3.png',
+values('https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/ba738736-1366-4be4-a08e-8385b7c1102bKakaoTalk_20240521_herehdr_04.png',
 'https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/ae509df6-4896-451c-84e7-dcaa2355c716%ED%81%B0%EB%B2%84%EC%A0%84-3.png',
 'https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/9a65494d-4fa7-4563-8ca9-ad53d00a2108%EC%9E%91%EC%9D%80%EB%B2%84%EC%A0%84-3.png',
        '짜란 ~ 나는 매운 맛의 마법을 자유자재로 부리는 마술사야!”
