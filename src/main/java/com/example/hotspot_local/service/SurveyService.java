@@ -18,7 +18,7 @@ public class SurveyService {
 
 	private final UserCharacterRepository userCharacterRepository;
 	private final OAuthRepository oAuthRepository;
-	private final UserRepository UserRrepository;
+	private final UserRepository userRepository;
 	private final ReviewRepository reviewRepository;
 	private final StoreRepository storeRepository;
 
@@ -27,6 +27,8 @@ public class SurveyService {
 		int sum = addAllSurveyScore(userScoreRequest.getSurveyScore());
 		String characterName = getCharacterName(sum);
 
+		System.out.println(characterName); // userCharacterRepository.findByCharacterName(characterName)
+    System.out.println(userCharacterRepository.findByCharacterName(characterName)); // userCharacterRepository.findByCharacterName(characterName)
 	    UserCharacterDto myCharacter = UserCharacterDto.form(userCharacterRepository.findByCharacterName(characterName));
 		ArrayList<UserCharacterDto> otherCharacter = getOtherCharacter(characterName);
 
@@ -42,7 +44,7 @@ public class SurveyService {
 
 		UserEntity userEntity = oAuthRepository.findByEmail(userEmail);
 
-		UserRrepository.save(User.from(userEntity.getUsername(), myCharacter.getCharacterName(), myCharacter.getSpicyLevel(),userEntity.getEmail()));
+		userRepository.save(User.from(userEntity.getUsername(), myCharacter.getCharacterName(), myCharacter.getSpicyLevel(),userEntity.getEmail()));
 	}
 
 	private ArrayList<UserCharacterDto> getOtherCharacter(String characterName) {
@@ -63,7 +65,7 @@ public class SurveyService {
 		if (sum <= 17) return "맵구" ;
 		else if (sum <= 34) return "맵노스";
 		else if (sum <= 51) return "맵물주";
-		else if (sum <= 68) return "위암플래너";
+		else if (sum <= 68) return "맵술사";
 		else return "실비요정";
 	}
 

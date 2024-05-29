@@ -197,14 +197,18 @@ public class KakaoMapService {
 
 		for(ResultOfStoresInfo store : Objects.requireNonNull(tmp.block())) {
 			ArrayList<Review> specificStoreReviewList = reviewRepository.findByStoreId(store.getStoreId());
+
 			ArrayList<Integer> specificStoreSpicyLevelReview = reviewService.getSpicyLevelList(specificStoreReviewList);
+			ArrayList<Integer> specificStoreSpicyLevelCountList = reviewService.getSpicyLevelCount(specificStoreReviewList);
 
-			int specificStoreSpicyLevel = (int)specificStoreSpicyLevelReview.get(0);
+			ArrayList<Double> calculateSpicyLevelAvg = reviewService.calculateSpicyLevelAverage(specificStoreSpicyLevelReview, specificStoreSpicyLevelCountList);
 
-			if(specificStoreSpicyLevel == spicyLevel) {
-				targetStoreList.add(store);
-			}
+			int specificStoreSpicyLevel = (int) Math.floor(calculateSpicyLevelAvg.get(0));
+
+			if(specificStoreSpicyLevel == spicyLevel)	targetStoreList.add(store);
+
 		}
 		return targetStoreList;
 	}
+
 }

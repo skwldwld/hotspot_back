@@ -1,4 +1,15 @@
-insert into silbi_portfolio_likelion.user values(2, '22000116@handong.ac.kr', null, 2, '바보 이반');
+insert into silbi_portfolio_likelion.user(email, nick_name, personal_spicy_level, user_name)
+values('22000116@handong.ac.kr', '실비요정', 5, '이반');
+
+UPDATE silbi_portfolio_likelion.user
+SET nick_name = '실비요정'
+WHERE email = '22000116@handong.ac.kr';
+
+
+ALTER TABLE [테이블명]
+    MODIFY [컬럼명][수정 데이터타입(수정 길이)] ;
+
+delete from silbi_portfolio_likelion.user where email = '22000116@handong.ac.kr';
 
 # 처음이 review_id, 두번째가 comment, 세번째가 foodName, 네번째가 review_image,
 # 다섯번째가 review_spicyLevel, 여섯번째가 store_id, 일곱번짝 title, 마지막이 user_id

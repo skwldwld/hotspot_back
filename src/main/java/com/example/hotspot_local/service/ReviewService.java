@@ -68,6 +68,7 @@ public class ReviewService {
 				case 5 -> spicyLevelList.set(5, spicyLevelList.get(5) + review.getReviewSpicyLevel());
 			}
 		}
+
 		return spicyLevelList;
 	}
 
@@ -88,7 +89,7 @@ public class ReviewService {
 		return spicyLevelCount;
 	}
 
-	private ArrayList<Double> calculateSpicyLevelAverage(ArrayList<Integer> spicyLevelList, ArrayList<Integer> spicyLevelCountList) {
+	public ArrayList<Double> calculateSpicyLevelAverage(ArrayList<Integer> spicyLevelList, ArrayList<Integer> spicyLevelCountList) {
 		ArrayList<Double> spicyLevelAverageList = new ArrayList<>(Collections.nCopies(6, 0.0));
 
 		for(int i = 0; i < 6; i++) {

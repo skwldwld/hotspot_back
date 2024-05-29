@@ -41,6 +41,7 @@ public class KakaoMapsApiController {
 		String category_group_code = "FD6";
 		int page = 3;
 		Mono<List<ResultOfStoresInfo>> tmp  = kakaoMapService.searchPlacesMultiplePages(query, category_group_code, x, y, radius, page);
+
 		return kakaoMapService.categorizedStores(tmp, spicyLevel);
 	}
 
