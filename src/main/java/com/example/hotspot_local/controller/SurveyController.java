@@ -5,12 +5,11 @@ import com.example.hotspot_local.controller.response.AboutSurvey.ResultUserTestR
 import com.example.hotspot_local.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class SurveyController {
 
 	private final SurveyService surveyService;
@@ -19,6 +18,13 @@ public class SurveyController {
 	public ResponseEntity<ResultUserTestResponse> survey(@RequestParam String email, @RequestParam int[] surveyScore){
 		UserScoreRequest userScoreRequest = new UserScoreRequest(surveyScore, email);
 		ResultUserTestResponse resultUserTestResponse = surveyService.getUserScoreRequest(userScoreRequest);
+		return ResponseEntity.ok().body(resultUserTestResponse);
+	}
+
+	@PatchMapping("/patch/survey/result ")
+	public ResponseEntity<ResultUserTestResponse> patchSurvey(@RequestParam String email, @RequestParam int[] surveyScore){
+		UserScoreRequest userScoreRequest = new UserScoreRequest(surveyScore, email);
+		ResultUserTestResponse resultUserTestResponse = surveyService.patchUserScoreRequest(userScoreRequest);
 		return ResponseEntity.ok().body(resultUserTestResponse);
 	}
 

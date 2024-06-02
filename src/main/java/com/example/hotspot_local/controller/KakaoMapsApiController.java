@@ -53,6 +53,7 @@ public class KakaoMapsApiController {
 		return kakaoMapService.searchPlacesMultiplePages(query, category_group_code, x, y, radius, page);
 	}
 
+//	scp [보낼 파일의 절대경로] root@ip주소:~/[받을 경로]
 
 // Behind codes are temporal codes for developing.
 

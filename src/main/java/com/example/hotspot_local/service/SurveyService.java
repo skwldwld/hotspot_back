@@ -7,6 +7,7 @@ import com.example.hotspot_local.domain.UserCharacter;
 import com.example.hotspot_local.domain.UserEntity;
 import com.example.hotspot_local.dto.UserCharacterDto;
 import com.example.hotspot_local.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,6 @@ public class SurveyService {
 
 		int sum = addAllSurveyScore(userScoreRequest.getSurveyScore());
 		String characterName = getCharacterName(sum);
-
-		System.out.println(characterName); // userCharacterRepository.findByCharacterName(characterName)
-    System.out.println(userCharacterRepository.findByCharacterName(characterName)); // userCharacterRepository.findByCharacterName(characterName)
 	    UserCharacterDto myCharacter = UserCharacterDto.form(userCharacterRepository.findByCharacterName(characterName));
 		ArrayList<UserCharacterDto> otherCharacter = getOtherCharacter(characterName);
 
@@ -75,4 +73,27 @@ public class SurveyService {
 		return sum;
 	}
 
+	@Transactional
+	public ResultUserTestResponse patchUserScoreRequest(UserScoreRequest userScoreRequest) {
+		int sum = addAllSurveyScore(userScoreRequest.getSurveyScore());
+		String characterName = getCharacterName(sum);
+		UserCharacterDto myCharacter = UserCharacterDto.form(userCharacterRepository.findByCharacterName(characterName));
+		ArrayList<UserCharacterDto> otherCharacter = getOtherCharacter(characterName);
+
+		changeUserScore(userScoreRequest, myCharacter);
+
+		return new ResultUserTestResponse(myCharacter, otherCharacter);
+
+	}
+
+//	@Transactional
+	public void changeUserScore(UserScoreRequest userScoreRequest, UserCharacterDto myCharacter) {
+
+		String userEmail = userScoreRequest.getEmail();
+		if(userEmail == null || userEmail.isEmpty()) return;
+
+		User user = userRepository.findByEmail(userEmail);
+		user.setNickName(myCharacter.getCharacterName());
+		user.setPersonalSpicyLevel(myCharacter.getSpicyLevel());
+	}
 }
