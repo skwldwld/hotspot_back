@@ -42,4 +42,12 @@ public class MyPageController {
 //		return ResponseEntity.ok().build();
 //	}
 
+//	@GetMapping("/auth/mypage")
+//	public ResponseEntity<MemberInfoResponse> myPage(@RequestParam String userEmail) {
+//		MemberInfoResponse memberInfoResponse = myPageService.findMemberInfo(userEmail);
+//		MemberReviewListResponse reviewList = reviewService.findReviewByUser(userEmail);
+//		memberInfoResponse.setReviewList(reviewList.getReviewList());
+//		return ResponseEntity.ok().body(memberInfoResponse);
+//	}
+
 }

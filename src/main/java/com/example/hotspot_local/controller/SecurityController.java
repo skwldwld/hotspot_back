@@ -28,6 +28,7 @@ public class SecurityController {
 
 	@GetMapping("/login")
 	public ResponseEntity<MemberResponse> user(@AuthenticationPrincipal OAuth2User principal) {
+    System.out.println(principal.getAttributes());
 		MemberResponse memberResponse = new MemberResponse(principal.getAttribute("email").toString(), principal.getAttribute("name").toString());
 		return ResponseEntity.ok().body(memberResponse);
 	}
