@@ -1,7 +1,9 @@
 package com.example.hotspot_local.controller;
 
+import com.example.hotspot_local.config.SecurityConfig;
 import com.example.hotspot_local.controller.response.OAuth.MemberResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,10 +29,10 @@ public class SecurityController {
 
 
 	@GetMapping("/login")
-	public ResponseEntity<MemberResponse> user(@AuthenticationPrincipal OAuth2User principal) {
-    System.out.println(principal.getAttributes());
-		MemberResponse memberResponse = new MemberResponse(principal.getAttribute("email").toString(), principal.getAttribute("name").toString());
-		return ResponseEntity.ok().body(memberResponse);
+	public ResponseEntity<MemberResponse> user(@AuthenticationPrincipal OAuth2User principal, HttpSession session) {
+		String email = principal.getAttribute("email"); //
+		session.setAttribute("email", email);
+		return ResponseEntity.ok().body(new MemberResponse(email));
 	}
 
 }

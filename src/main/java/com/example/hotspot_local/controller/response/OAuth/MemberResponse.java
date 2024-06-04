@@ -9,5 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberResponse {
 	String email;
-	String name;
 }

@@ -2,16 +2,16 @@ package com.example.hotspot_local.controller;
 
 import com.example.hotspot_local.controller.response.AboutMyPage.MemberInfoResponse;
 import com.example.hotspot_local.controller.response.AboutMyPage.MemberReviewListResponse;
+import com.example.hotspot_local.controller.response.OAuth.MemberResponse;
 import com.example.hotspot_local.dto.ReviewDto;
 import com.example.hotspot_local.repository.StoreRepository;
 import com.example.hotspot_local.service.MyPageService;
 import com.example.hotspot_local.service.ReviewService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -42,12 +42,11 @@ public class MyPageController {
 //		return ResponseEntity.ok().build();
 //	}
 
-//	@GetMapping("/auth/mypage")
-//	public ResponseEntity<MemberInfoResponse> myPage(@RequestParam String userEmail) {
-//		MemberInfoResponse memberInfoResponse = myPageService.findMemberInfo(userEmail);
-//		MemberReviewListResponse reviewList = reviewService.findReviewByUser(userEmail);
-//		memberInfoResponse.setReviewList(reviewList.getReviewList());
-//		return ResponseEntity.ok().body(memberInfoResponse);
-//	}
+	@GetMapping("/auth/mypage")
+	public ResponseEntity<MemberResponse> myPage(@SessionAttribute("email") String email) {
+		MemberResponse memberResponse = new MemberResponse(email);
+//    System.out.println(memberResponse);
+		return ResponseEntity.ok().body(memberResponse);
+	}
 
 }
