@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class MyPageController {
 
 	private final MyPageService myPageService;

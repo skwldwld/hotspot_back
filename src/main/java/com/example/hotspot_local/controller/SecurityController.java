@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class SecurityController {
 
 	@GetMapping("/logout")  // 이거 하면 user_entity에서 값을 삭제해버릴까? 그렇게 해서 로그인 여부 확인하면 될 듯..
@@ -30,9 +30,10 @@ public class SecurityController {
 
 	@GetMapping("/login")
 	public ResponseEntity<MemberResponse> user(@AuthenticationPrincipal OAuth2User principal, HttpSession session) {
-		String email = principal.getAttribute("email"); //
+		String email = principal.getAttribute("email"); // 이건 없애도 됨.
 		session.setAttribute("email", email);
 		return ResponseEntity.ok().body(new MemberResponse(email));
 	}
-
+//  chrome에서 same = strong 인데, 그걸 none으로 바꿔줘야한다.
+//	이걸 쿠키
 }

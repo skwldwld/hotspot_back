@@ -55,3 +55,6 @@ public class SecurityConfig {
     return http.build();
   }
 }
+
+// same sight policy를 none으로 바꿔줘야한다.
+// http -> https 로 바꿔주고
