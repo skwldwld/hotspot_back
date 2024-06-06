@@ -21,7 +21,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-    http.csrf((csrf) -> csrf.disable());
+    http.csrf((csrf) -> csrf.disable());    // 여기..
 
     http.formLogin((login) -> login.disable());
 
@@ -44,11 +44,16 @@ public class SecurityConfig {
                     (request, response, authentication) -> {
                       response.sendRedirect("http://localhost:3000");
                     }));
-
+    
+//  session 관련된 것들은 다 여기서 처리해야함.
+    
     http.authorizeHttpRequests(
         (auth) ->
             auth.requestMatchers("/get/**", "/login", "/stores/**")
                 .permitAll()
+                // 유저 세션이 있으면 열어주고 없으면 막아주고 -> filter 하나를 만들어서 처리하면 좋아.
+                // secuitycontextholder에 세션이 있으면 값을 넣어주는 방식을..
+//                setAttribute로 해도 되고.
                 .anyRequest()
                 .authenticated());
 
@@ -56,5 +61,3 @@ public class SecurityConfig {
   }
 }
 
-// same sight policy를 none으로 바꿔줘야한다.
-// http -> https 로 바꿔주고

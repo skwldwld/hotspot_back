@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class StoreSpicyLevelController {
 
 	private final ReviewService reviewService;

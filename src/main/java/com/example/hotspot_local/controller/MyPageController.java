@@ -3,6 +3,7 @@ package com.example.hotspot_local.controller;
 import com.example.hotspot_local.controller.response.AboutMyPage.MemberInfoResponse;
 import com.example.hotspot_local.controller.response.AboutMyPage.MemberReviewListResponse;
 import com.example.hotspot_local.controller.response.OAuth.MemberResponse;
+import com.example.hotspot_local.dto.CustomOAuth2User;
 import com.example.hotspot_local.dto.ReviewDto;
 import com.example.hotspot_local.repository.StoreRepository;
 import com.example.hotspot_local.service.MyPageService;
@@ -11,13 +12,14 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class MyPageController {
 
 	private final MyPageService myPageService;
@@ -25,14 +27,14 @@ public class MyPageController {
 	private final StoreRepository storeRepository;
 
 	@GetMapping("/auth/mypage/memberInfo")
-	public ResponseEntity<MemberInfoResponse> memberInfo(@RequestParam String userEmail) {
-		MemberInfoResponse memberInfoResponse = myPageService.findMemberInfo(userEmail);
+	public ResponseEntity<MemberInfoResponse> memberInfo(@AuthenticationPrincipal CustomOAuth2User principal) {
+		MemberInfoResponse memberInfoResponse = myPageService.findMemberInfo(principal.getEmail());
 		return ResponseEntity.ok().body(memberInfoResponse);
 	}
 
 	@GetMapping("/auth/mypage/reviewlist")
-	public ResponseEntity<MemberReviewListResponse> reviewList(@RequestParam String userEmail) {
-		MemberReviewListResponse reviewList = reviewService.findReviewByUser(userEmail);
+	public ResponseEntity<MemberReviewListResponse> reviewList(@AuthenticationPrincipal CustomOAuth2User principal) {
+		MemberReviewListResponse reviewList = reviewService.findReviewByUser(principal.getEmail());
 		return ResponseEntity.ok().body(reviewList);
 	}
 
