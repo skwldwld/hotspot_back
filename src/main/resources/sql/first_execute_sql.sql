@@ -1,5 +1,5 @@
-# 로그인 때문에..!
-# insert into silbi_portfolio_likelion.user_entity(id, email, role, username) values(1,'22000116@handong.ac.kr', 'User', '학부생 김승환');
+-- # 로그인 때문에..!
+-- # insert into silbi_portfolio_likelion.user_entity(id, email, role, username) values(1,'22000116@handong.ac.kr', 'User', '학부생 김승환');
 
 insert into user_character(character_back_image, character_front_big_image, character_front_small_image, character_info, character_name, spicy_level, character_my_page_image, original_color, changed_color)
 values('https://elasticbeanstalk-ap-northeast-2-975049928260.s3.ap-northeast-2.amazonaws.com/viaF/17c47407-f793-447b-b718-75f5f7270b03%EC%BA%90%EB%A6%AD%ED%84%B0%20%EB%92%B7%EB%A9%B4.png',
